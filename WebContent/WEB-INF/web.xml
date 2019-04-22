@@ -139,4 +139,24 @@
     <servlet-name>addSignController</servlet-name>
     <url-pattern>/addsign</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findSignByNameController</display-name>
+    <servlet-name>findSignByNameController</servlet-name>
+    <servlet-class>com.hl.controller.sign.findSignByNameController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findSignByNameController</servlet-name>
+    <url-pattern>/findsignbyname</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteSignByNameController</display-name>
+    <servlet-name>deleteSignByNameController</servlet-name>
+    <servlet-class>com.hl.controller.sign.deleteSignByNameController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteSignByNameController</servlet-name>
+    <url-pattern>/deletesignbyname</url-pattern>
+  </servlet-mapping>
 </web-app>
