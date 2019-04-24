@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <description></description>
     <display-name>LoginController</display-name>
@@ -158,5 +159,45 @@
   <servlet-mapping>
     <servlet-name>deleteSignByNameController</servlet-name>
     <url-pattern>/deletesignbyname</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>addCommentController</display-name>
+    <servlet-name>addCommentController</servlet-name>
+    <servlet-class>com.hl.controller.comment.addCommentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addCommentController</servlet-name>
+    <url-pattern>/addcomment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findCommentByLogIDController</display-name>
+    <servlet-name>findCommentByLogIDController</servlet-name>
+    <servlet-class>com.hl.controller.comment.findCommentByLogIDController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findCommentByLogIDController</servlet-name>
+    <url-pattern>/findcommentbylogid</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>addNewsController</display-name>
+    <servlet-name>addNewsController</servlet-name>
+    <servlet-class>com.hl.controller.news.addNewsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addNewsController</servlet-name>
+    <url-pattern>/addnews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findAllNewsController</display-name>
+    <servlet-name>findAllNewsController</servlet-name>
+    <servlet-class>com.hl.controller.news.findAllNewsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findAllNewsController</servlet-name>
+    <url-pattern>/findallnews</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -12,7 +12,7 @@ import com.hl.utils.JDBCUtils;
 
 public class SignDao {
 	//签到
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	public int addSign(Sign sign) throws Exception {
 		int result = -1;
 		Connection con = null;

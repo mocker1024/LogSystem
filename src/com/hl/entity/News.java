@@ -1,12 +1,17 @@
 package com.hl.entity;
 
-import java.util.Date;
-
-
 public class News {
+	private int news_id;
 	private String title;
 	private String news_context;
-	private Date news_date;
+	private String news_date;
+	
+	public int getNews_id() {
+		return news_id;
+	}
+	public void setNews_id(int news_id) {
+		this.news_id = news_id;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -19,16 +24,16 @@ public class News {
 	public void setNews_context(String news_context) {
 		this.news_context = news_context;
 	}
-	public Date getNews_date() {
+	public String getNews_date() {
 		return news_date;
 	}
-	public void setNews_date(Date news_date) {
+	public void setNews_date(String news_date) {
 		this.news_date = news_date;
 	}
 	public News(){
 		super();
 	}
-	public News(String title, String news_context, Date news_date) {
+	public News(String title, String news_context, String news_date) {
 		super();
 		this.title = title;
 		this.news_context = news_context;

@@ -48,7 +48,7 @@ public class LogDao {
 		}
 		return result;
 	}
-	//根据ID查询日志（阅读日志->status=1）
+	//根据ID查询日志（阅读日志->status=1 && 查评论）
 	public Log findLogById(int log_id) throws Exception {
 		Log log=null;
 		Connection con = null;

@@ -1,15 +1,22 @@
 package com.hl.entity;
 
-import java.util.Date;
 
 /**
  * 
  */
 public class Comment {
+	private int comment_id;
 	private String uname;
 	private String comment_context;
-	private Date comment_date;
+	private String comment_date;
 	private int log_id;
+	
+	public int getComment_id() {
+		return comment_id;
+	}
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
 	public String getUname() {
 		return uname;
 	}
@@ -22,10 +29,10 @@ public class Comment {
 	public void setComment_context(String comment_context) {
 		this.comment_context = comment_context;
 	}
-	public Date getComment_date() {
+	public String getComment_date() {
 		return comment_date;
 	}
-	public void setComment_date(Date comment_date) {
+	public void setComment_date(String comment_date) {
 		this.comment_date = comment_date;
 	}
 	public int getLog_id() {
@@ -37,7 +44,7 @@ public class Comment {
 	public Comment() {
 		super();
 	}
-	public Comment(String uname, String comment_context, Date comment_date, int log_id) {
+	public Comment(String uname, String comment_context, String comment_date, int log_id) {
 		super();
 		this.uname = uname;
 		this.comment_context = comment_context;
@@ -46,7 +53,7 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [uname=" + uname + ", comment_context=" + comment_context + ", comment_date=" + comment_date
+		return "Comment [id=" + comment_id + ",uname=" + uname + ", comment_context=" + comment_context + ", comment_date=" + comment_date
 				+ ", log_id=" + log_id + "]";
 	}
 	

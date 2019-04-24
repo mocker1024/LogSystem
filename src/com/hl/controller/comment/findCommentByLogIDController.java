@@ -1,22 +1,19 @@
-package com.hl.controller.log;
+package com.hl.controller.comment;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
-import com.hl.common.ListLog;
-import com.hl.dao.LogDao;
-import com.hl.entity.Log;
+import com.hl.dao.CommentDao;
+import com.hl.entity.Comment;
 
 /**
- * Servlet implementation class findLogByNameController
+ * Servlet implementation class findCommetByLogIDController
  */
-public class findLogByNameController extends HttpServlet {
+public class findCommentByLogIDController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,36 +27,23 @@ public class findLogByNameController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		findLogByName(request,response);
+		findCommentByID(response, request);
 	}
 
-	private void findLogByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		LogDao logDao = new LogDao();
-		ListLog listLog = null;
-		List<Log> ulist = null;
+	private void findCommentByID(HttpServletResponse response,HttpServletRequest request) throws IOException {
+		CommentDao commentDao= new CommentDao();
+		Comment comment = null;
 		
-		String uname = request.getParameter("uname");
-		System.out.println(uname);
+		int log_id = Integer.parseInt(request.getParameter("log_id"));
 		
 		try {
-			ulist = logDao.findLogByUname(uname);
-			System.out.println("Dao");
-			if(ulist != null) {
-				//System.out.println("ulist!=null");
-				listLog = new ListLog(ulist);
-			}
+			comment = commentDao.findCommentByLogId(log_id);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//System.out.println("ulist==null");
 		}
-//		int i = 0;
-//		for(i = 0;i<3;i++) {
-//			ulist.toString();
-//		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listLog));
+		response.getWriter().println(JSON.toJSONString(comment));
 		response.getWriter().flush();
 	}
 

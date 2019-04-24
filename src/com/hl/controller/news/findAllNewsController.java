@@ -1,4 +1,4 @@
-package com.hl.controller.log;
+package com.hl.controller.news;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.ListLog;
-import com.hl.dao.LogDao;
-import com.hl.entity.Log;
+import com.hl.common.ListNews;
+import com.hl.dao.NewsDao;
+import com.hl.entity.News;
 
 /**
- * Servlet implementation class findLogByNameController
+ * Servlet implementation class findAllNewsController
  */
-public class findLogByNameController extends HttpServlet {
+public class findAllNewsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,37 +31,28 @@ public class findLogByNameController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		findLogByName(request,response);
+		// TODO Auto-generated method stub
+		findAllNews(request, response);
 	}
-
-	private void findLogByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		LogDao logDao = new LogDao();
-		ListLog listLog = null;
-		List<Log> ulist = null;
-		
-		String uname = request.getParameter("uname");
-		System.out.println(uname);
+	private void findAllNews(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		NewsDao newsDao = new NewsDao();
+		ListNews listNews = null;
+		List<News> nlist = null;
 		
 		try {
-			ulist = logDao.findLogByUname(uname);
-			System.out.println("Dao");
-			if(ulist != null) {
+			nlist = newsDao.findAllNews();
+			if(nlist != null) {
 				//System.out.println("ulist!=null");
-				listLog = new ListLog(ulist);
+				listNews = new ListNews(nlist);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//System.out.println("ulist==null");
 		}
-//		int i = 0;
-//		for(i = 0;i<3;i++) {
-//			ulist.toString();
-//		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listLog));
+		response.getWriter().println(JSON.toJSONString(listNews));
 		response.getWriter().flush();
+		
 	}
 
 }
