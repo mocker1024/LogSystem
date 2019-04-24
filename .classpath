@@ -16,5 +16,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-dbutils-1.7.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fastjson-1.2.47.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.44.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cors-filter-2.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/java-property-utils-1.10.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

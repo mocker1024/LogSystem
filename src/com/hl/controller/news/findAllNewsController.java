@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.hl.common.AppResult;
 import com.hl.common.ListLog;
 import com.hl.common.ListNews;
 import com.hl.dao.NewsDao;
@@ -36,21 +37,23 @@ public class findAllNewsController extends HttpServlet {
 	}
 	private void findAllNews(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		NewsDao newsDao = new NewsDao();
-		ListNews listNews = null;
+		AppResult aResult = null;
 		List<News> nlist = null;
 		
 		try {
 			nlist = newsDao.findAllNews();
-			if(nlist != null) {
-				//System.out.println("ulist!=null");
-				listNews = new ListNews(nlist);
+			if(nlist == null) {
+				throw new RuntimeException();
 			}
+			aResult = new AppResult(200, "查询成功", nlist);
+			
 		} catch (Exception e) {
+			aResult = new AppResult(201, "无公告数据", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listNews));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 		
 	}

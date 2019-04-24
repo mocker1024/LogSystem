@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.hl.common.AppResult;
 import com.hl.dao.CommentDao;
 import com.hl.entity.Comment;
 
@@ -33,17 +34,24 @@ public class findCommentByLogIDController extends HttpServlet {
 	private void findCommentByID(HttpServletResponse response,HttpServletRequest request) throws IOException {
 		CommentDao commentDao= new CommentDao();
 		Comment comment = null;
+		AppResult aResult = null;
 		
 		int log_id = Integer.parseInt(request.getParameter("log_id"));
 		
 		try {
 			comment = commentDao.findCommentByLogId(log_id);
+			
+			if(comment ==null) {
+				throw new RuntimeException();
+			}
+			aResult = new AppResult(200, "查询成功", comment);
 		} catch (Exception e) {
+			aResult = new AppResult(201, "数据异常，查询失败", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(comment));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.hl.common.AppResult;
 import com.hl.dao.CommentDao;
 import com.hl.dao.LogDao;
 import com.hl.entity.Comment;
@@ -36,29 +37,22 @@ public class findLogByIdController extends HttpServlet {
 	private void findLogById(HttpServletResponse response,HttpServletRequest request) throws IOException {
 		LogDao logDao = new LogDao();
 		Log log = null;
-//		CommentDao commentDao = new CommentDao();
-//		Comment comment = null;
-		
+		AppResult aResult = null;
 		int log_id = Integer.parseInt(request.getParameter("log_id"));
-		//System.out.println(log_id);
 		
 		try {
 			log=logDao.findLogById(log_id);
-			if(log != null) {
-				logDao.modifyLogStatus(log);
-				//System.out.println("log!=null");
-//				if(log.getComment_id() != 0) {
-//					comment = commentDao.findCommentByLogId(log_id);
-//					System.out.println(comment.getComment_context());
-//				}
+			if(log == null) {
+				throw new RuntimeException();
 			}
+			aResult = new AppResult(200, "查询成功", log);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			aResult = new AppResult(201, "数据异常，查询失败", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(log));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
 

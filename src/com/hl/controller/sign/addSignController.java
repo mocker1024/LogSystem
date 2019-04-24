@@ -63,14 +63,10 @@ public class addSignController extends HttpServlet {
 		} catch (Exception e) {
 			aResult = new AppResult(201,"数据异常，签到失败",null);
 		}
-		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
-		
-		
-		
 	}
 
 }

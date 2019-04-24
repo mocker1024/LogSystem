@@ -1,8 +1,6 @@
-package com.hl.controller;
+package com.hl.controller.news;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListObject;
-import com.hl.dao.UserDao;
-import com.hl.entity.User;
+import com.hl.dao.NewsDao;
+import com.hl.entity.News;
 
 /**
- * Servlet implementation class findAllUserController
+ * Servlet implementation class findNewsByIdController
  */
-public class findAllUserController extends HttpServlet {
+public class findNewsByIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -31,36 +28,30 @@ public class findAllUserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		findAllUser(request, response);
-		
+		// TODO Auto-generated method stub
+		findNewsById(request, response);
 	}
-	private void findAllUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		UserDao userDao = new UserDao();
-		//AppResult aResult=null;
-		ListObject listObject = null;
-		List<User> ulist = null;
-		
-		String uname = request.getParameter("uname");
-		User user = new User();
-		user.setUname(uname);
+	private void findNewsById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int news_id = Integer.parseInt(request.getParameter("news_id"));
+		AppResult aResult = null;
+		NewsDao newsDao = new NewsDao();
+		News news = new News();
 		
 		try {
-			ulist = userDao.findAllUser(user);
-			if(ulist != null) {
-				listObject = new ListObject(ulist);
-				//listObject.setItems(ulist);
-				//aResult = new AppResult(200,"注册成功,等待审核",null);
-				//System.out.println("listobject");
+			news = newsDao.findNewsById(news_id);
+			if(news == null) {
+				throw new RuntimeException();
 			}
-			
+			aResult = new AppResult(200, "查询成功", news);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			aResult = new AppResult(201, "查询失败", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listObject));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
+		
 	}
 
 }

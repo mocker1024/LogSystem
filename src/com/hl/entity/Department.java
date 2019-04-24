@@ -3,8 +3,16 @@ package com.hl.entity;
  * 
  */
 public class Department {
+	private int department_id;
 	private String dname;
 	private String uname;
+	
+	public int getDepartment_id() {
+		return department_id;
+	}
+	public void setDepartment_id(int department_id) {
+		this.department_id = department_id;
+	}
 	public String getDname() {
 		return dname;
 	}

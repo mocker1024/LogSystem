@@ -1,20 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>LogSystem</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
+  <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+    <init-param>
+      <param-name>cors.allowGenericHttpRequests</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.allowOrigin</param-name>
+      <param-value>*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.allowSubdomains</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.supportedMethods</param-name>
+      <param-value>GET, HEAD, POST, OPTIONS</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.supportedHeaders</param-name>
+      <param-value>*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.exposedHeaders</param-name>
+      <param-value>X-Test-1, X-Test-2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.supportsCredentials</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.maxAge</param-name>
+      <param-value>-1</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CORS</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
   <servlet>
     <description></description>
     <display-name>LoginController</display-name>
     <servlet-name>LoginController</servlet-name>
-    <servlet-class>com.hl.controller.LoginController</servlet-class>
+    <servlet-class>com.hl.controller.user.LoginController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginController</servlet-name>
@@ -24,7 +55,7 @@
     <description></description>
     <display-name>AddUserController</display-name>
     <servlet-name>AddUserController</servlet-name>
-    <servlet-class>com.hl.controller.AddUserController</servlet-class>
+    <servlet-class>com.hl.controller.user.AddUserController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddUserController</servlet-name>
@@ -34,7 +65,7 @@
     <description></description>
     <display-name>modifyStatus1Controller</display-name>
     <servlet-name>modifyStatus1Controller</servlet-name>
-    <servlet-class>com.hl.controller.modifyStatus1Controller</servlet-class>
+    <servlet-class>com.hl.controller.user.modifyStatus1Controller</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>modifyStatus1Controller</servlet-name>
@@ -44,7 +75,7 @@
     <description></description>
     <display-name>deleteUserController</display-name>
     <servlet-name>deleteUserController</servlet-name>
-    <servlet-class>com.hl.controller.deleteUserController</servlet-class>
+    <servlet-class>com.hl.controller.user.deleteUserController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>deleteUserController</servlet-name>
@@ -54,7 +85,7 @@
     <description></description>
     <display-name>modifyUserController</display-name>
     <servlet-name>modifyUserController</servlet-name>
-    <servlet-class>com.hl.controller.modifyUserController</servlet-class>
+    <servlet-class>com.hl.controller.user.modifyUserController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>modifyUserController</servlet-name>
@@ -64,7 +95,7 @@
     <description></description>
     <display-name>findAllUserController</display-name>
     <servlet-name>findAllUserController</servlet-name>
-    <servlet-class>com.hl.controller.findAllUserController</servlet-class>
+    <servlet-class>com.hl.controller.user.findAllUserController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>findAllUserController</servlet-name>
@@ -104,7 +135,7 @@
     <description></description>
     <display-name>findUserStatus0Controller</display-name>
     <servlet-name>findUserStatus0Controller</servlet-name>
-    <servlet-class>com.hl.controller.findUserStatus0Controller</servlet-class>
+    <servlet-class>com.hl.controller.user.findUserStatus0Controller</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>findUserStatus0Controller</servlet-name>
@@ -199,5 +230,35 @@
   <servlet-mapping>
     <servlet-name>findAllNewsController</servlet-name>
     <url-pattern>/findallnews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findNewsByIdController</display-name>
+    <servlet-name>findNewsByIdController</servlet-name>
+    <servlet-class>com.hl.controller.news.findNewsByIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findNewsByIdController</servlet-name>
+    <url-pattern>/findnewsbyid</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteNewsByIdController</display-name>
+    <servlet-name>deleteNewsByIdController</servlet-name>
+    <servlet-class>com.hl.controller.news.deleteNewsByIdController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteNewsByIdController</servlet-name>
+    <url-pattern>/deletenewsbyid</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findAllDepartmentController</display-name>
+    <servlet-name>findAllDepartmentController</servlet-name>
+    <servlet-class>com.hl.controller.department.findAllDepartmentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findAllDepartmentController</servlet-name>
+    <url-pattern>/findalldepartment</url-pattern>
   </servlet-mapping>
 </web-app>

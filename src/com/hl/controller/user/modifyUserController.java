@@ -1,4 +1,4 @@
-package com.hl.controller;
+package com.hl.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,17 +11,17 @@ import com.hl.common.AppResult;
 import com.hl.dao.UserDao;
 import com.hl.entity.User;
 
+
 /**
- * Servlet implementation class AddUserController
+ * Servlet implementation class modifyUserController
  */
-public class AddUserController extends HttpServlet {
+public class modifyUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -29,40 +29,34 @@ public class AddUserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			addUser(request,response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	private void addUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		AppResult aResult = null;
+		AppResult aResult=null;
 		request.setCharacterEncoding("utf-8");
-		//uname,password,department_id,position,realname
-		String uname = request.getParameter("uname");
-		String password = request.getParameter("password");
 		
+		String uname=request.getParameter("uname");
+		String password = request.getParameter("password");
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
 		int position= Integer.parseInt(request.getParameter("position"));
 		String realname = request.getParameter("realname");
+		int status =1;
+		int sex = Integer.parseInt(request.getParameter("sex"));
+		String tel=request.getParameter("tel");
+		int age = Integer.parseInt(request.getParameter("age"));
+		UserDao userDao = new UserDao();
 		
-		UserDao userDao= new UserDao();
+		User user = new User(uname, password, department_id, position, realname, status,sex,tel,age);
 		try {
-			if(uname !=null || password != null || department_id != -1|| position!= -1||realname != null) {
-				User user = new User(uname,password,department_id,position,realname,0);
-				int result = userDao.addUser(user);
-				if(result!=1) {
-					throw new RuntimeException();
-				}
-				aResult = new AppResult(200,"注册成功,等待审核",null);
-				}
+			int result = userDao.modifyUser(user);
+			if(result!=1) {
+				throw new RuntimeException();
+			}
+			aResult = new AppResult(200,"信息修改成功",null);
 		} catch (Exception e) {
-			aResult = new AppResult(201, "注册失败", null);
+			aResult = new AppResult(201,"数据异常,信息修改失败",null);
+			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(aResult));
+		response.getWriter().println(JSON.toJSON(aResult));
 		response.getWriter().flush();
 	}
 

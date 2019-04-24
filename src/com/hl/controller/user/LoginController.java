@@ -1,4 +1,4 @@
-package com.hl.controller.sign;
+package com.hl.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.dao.SignDao;
+import com.hl.dao.UserDao;
+import com.hl.entity.User;
 
 /**
- * Servlet implementation class deleteSignByNameController
+ * Servlet implementation class LoginController
  */
-public class deleteSignByNameController extends HttpServlet {
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -27,33 +27,41 @@ public class deleteSignByNameController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		deleteSignByName(request, response);
+		login(request,response);
 	}
-	private void deleteSignByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		SignDao signDao = new SignDao();
-		AppResult aResult = null;
-		
-		String uname = request.getParameter("uname");
+    //	
+	private void login(HttpServletRequest request, HttpServletResponse response)throws  IOException{
+		AppResult aResult=null;
+		//
+		String uname=request.getParameter("uname");
 		System.out.println(uname);
-		request.setCharacterEncoding("utf-8");
-		int result = -1;
-		
+		String password=request.getParameter("password");
+		//
+		UserDao userDao = new UserDao();
+		User user = null;
 		try {
-			result = signDao.deleteSignByName(uname);
-			System.out.println(result);
-			if(result == -1 || result == 0) {
-				throw new RuntimeException();	
+			user = userDao.findUserByNameAndPassword(uname, password);
+			//user.toString();
+			if(user == null) {
+				throw new RuntimeException();
+			}else {
+				if(user.getStatus()==1) {
+					aResult = new AppResult(200,"登录成功",null);
+					// 
+					request.getSession().setAttribute("user", user);
+				}else if(user.getStatus()==0) {
+					aResult = new AppResult(203,"登录失败,账号等待审核...",null);
+				}		
 			}
-			aResult = new AppResult(200, "删除成功", null);
 		} catch (Exception e) {
-			aResult = new AppResult(201,"数据异常,删除失败",null);
+			aResult = new AppResult(201,"error:admin or password",null);
 			e.printStackTrace();
+			//System.out.println(e);
 		}
+		// json
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
-
 }

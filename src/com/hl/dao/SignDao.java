@@ -48,8 +48,9 @@ public class SignDao {
 		
 		try {
 			con = JDBCUtils.getConnection();
-			String sql = "SELECT uname,DATE FROM calendar_info WHERE uname=? ORDER BY DATE DESC";
+			String sql = "SELECT * FROM calendar_info WHERE uname=? ORDER BY DATE DESC";
 			slist = runner.query(con, sql, new BeanListHandler<>(Sign.class), uname);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

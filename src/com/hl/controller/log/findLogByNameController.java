@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.hl.common.AppResult;
 import com.hl.common.ListLog;
 import com.hl.dao.LogDao;
 import com.hl.entity.Log;
@@ -35,7 +36,7 @@ public class findLogByNameController extends HttpServlet {
 
 	private void findLogByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LogDao logDao = new LogDao();
-		ListLog listLog = null;
+		AppResult aResult = null;
 		List<Log> ulist = null;
 		
 		String uname = request.getParameter("uname");
@@ -44,22 +45,18 @@ public class findLogByNameController extends HttpServlet {
 		try {
 			ulist = logDao.findLogByUname(uname);
 			System.out.println("Dao");
-			if(ulist != null) {
-				//System.out.println("ulist!=null");
-				listLog = new ListLog(ulist);
+			if(ulist == null || ulist.size() ==0) {
+				throw new RuntimeException();
 			}
+			aResult = new AppResult(200, "查询成功", ulist);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			aResult = new AppResult(201, "无数据", null);
 			e.printStackTrace();
-			//System.out.println("ulist==null");
+			
 		}
-//		int i = 0;
-//		for(i = 0;i<3;i++) {
-//			ulist.toString();
-//		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listLog));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
 

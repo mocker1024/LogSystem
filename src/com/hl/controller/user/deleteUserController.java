@@ -1,4 +1,4 @@
-package com.hl.controller;
+package com.hl.controller.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
 import com.hl.dao.UserDao;
-import com.hl.entity.User;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class deleteUserController
  */
-public class LoginController extends HttpServlet {
+public class deleteUserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -27,38 +27,27 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		login(request,response);
-	}
-    //	
-	private void login(HttpServletRequest request, HttpServletResponse response)throws  IOException{
 		AppResult aResult=null;
-		//
-		String uname=request.getParameter("uname");
-		String password=request.getParameter("password");
-		//
+		request.setCharacterEncoding("utf-8");
+		String uname = request.getParameter("uname");
+		
 		UserDao userDao = new UserDao();
-		User user = null;
+		
 		try {
-			user = userDao.findUserByNameAndPassword(uname, password);
-			//user.toString();
-			if(user == null) {
+			int result = userDao.deleteUser(uname);
+			if(result!=1) {
 				throw new RuntimeException();
-			}else {
-				if(user.getStatus()==1) {
-					aResult = new AppResult(200,"登录成功",null);
-					// 
-					request.getSession().setAttribute("user", user);
-				}else if(user.getStatus()==0) {
-					aResult = new AppResult(203,"登录失败,账号等待审核...",null);
-				}		
 			}
+			aResult = new AppResult(200,"删除成功",null);
 		} catch (Exception e) {
-			aResult = new AppResult(201,"error:admin or password",null);
+			aResult = new AppResult(201,"数据异常,删除失败",null);
+			e.printStackTrace();
 		}
-		// json
+		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
+
 }

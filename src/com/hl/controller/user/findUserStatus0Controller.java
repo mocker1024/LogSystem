@@ -1,6 +1,8 @@
-package com.hl.controller.sign;
+package com.hl.controller.user;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,46 +10,49 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.dao.SignDao;
+import com.hl.common.ListLog;
+import com.hl.common.ListObject;
+import com.hl.dao.LogDao;
+import com.hl.dao.UserDao;
+import com.hl.entity.Log;
+import com.hl.entity.User;
 
 /**
- * Servlet implementation class deleteSignByNameController
+ * Servlet implementation class findUserStatus0Controller
  */
-public class deleteSignByNameController extends HttpServlet {
+public class findUserStatus0Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		findUserStatus0(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		deleteSignByName(request, response);
+		findUserStatus0(request,response);
 	}
-	private void deleteSignByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		SignDao signDao = new SignDao();
+	private void findUserStatus0(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		UserDao userDao = new UserDao();
 		AppResult aResult = null;
+		//ListObject listObject = null;
+		List<User> ulist = null;
 		
 		String uname = request.getParameter("uname");
-		System.out.println(uname);
-		request.setCharacterEncoding("utf-8");
-		int result = -1;
-		
+		User user = new User();
+		user.setUname(uname);
 		try {
-			result = signDao.deleteSignByName(uname);
-			System.out.println(result);
-			if(result == -1 || result == 0) {
-				throw new RuntimeException();	
+			ulist = userDao.findUserStatus0(user);
+			if(ulist == null) {
+				throw new RuntimeException();
 			}
-			aResult = new AppResult(200, "删除成功", null);
+			aResult = new AppResult(200, "已查到数据", ulist);
 		} catch (Exception e) {
-			aResult = new AppResult(201,"数据异常,删除失败",null);
+			aResult = new AppResult(201, "无数据", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");

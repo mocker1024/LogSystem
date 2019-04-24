@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.hl.common.AppResult;
 import com.hl.common.ListSign;
 import com.hl.dao.SignDao;
 import com.hl.entity.Sign;
@@ -35,24 +36,28 @@ public class findSignByNameController extends HttpServlet {
 	}
 	private void findSignByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		SignDao signDao = new SignDao();
-		ListSign listSign = null;
+		AppResult aResult = null;
 		List<Sign> slist = null;
 		
 		String uname = request.getParameter("uname");
 		
 		try {
 			slist = signDao.findSignByName(uname);
-			System.out.println("slist = signDao.findSignByName(uname)");
-			
-			if(slist!= null) {
-				listSign = new ListSign(slist);
+			if(slist.size() == 0) {
+				throw new RuntimeException();
 			}
+			int i = slist.size();
+			//System.out.println(i);
+			//System.out.println(slist.get(i));
+			//System.out.println(uname);
+			aResult = new AppResult(200, "签到查询成功", slist);
 		} catch (Exception e) {
+			aResult = new AppResult(201, "无签到数据", null);
 			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
-		response.getWriter().println(JSON.toJSONString(listSign));
+		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
 	}
 
