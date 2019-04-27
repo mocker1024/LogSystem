@@ -1,8 +1,6 @@
 package com.hl.controller.department;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +12,9 @@ import com.hl.dao.DepartmentDao;
 import com.hl.entity.Department;
 
 /**
- * Servlet implementation class findAllDepartmentController
+ * Servlet implementation class addDeapartmentController
  */
-public class findAllDepartmentController extends HttpServlet {
+public class addDeapartmentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,29 +28,39 @@ public class findAllDepartmentController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		findAllDepartment(request, response);
-	}
-
-	private void findAllDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		DepartmentDao departmentDao = new DepartmentDao();
-		AppResult aResult = null;
 		
-		List<Department> dlist = null;
+		addDepartment(request, response);
+	}
+	private void addDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		DepartmentDao departmentDao = new DepartmentDao();
+		Department department = new Department();
+		int result = -1;
+		AppResult aResult = null;
+		request.setCharacterEncoding("utf-8");
+		//System.out.println("controller"+request.getParameter("uname"));
+		
+		if(request.getParameter("uname") != null) {
+			
+		    String uname= request.getParameter("uname");	
+		    department.setUname(uname);
+		   // System.out.println("if uname !+ null"+uname);
+		}
+		department.setDname(request.getParameter("dname"));
+		
 		try {
-			dlist = departmentDao.findAllDepartment();
-			if(dlist == null || dlist.size()==0) {
+			result = departmentDao.addDepartment(department);
+			if(result == -1 || result == 0) {
 				throw new RuntimeException();
 			}
-			aResult = new AppResult(200, "查询ok", dlist);
+			aResult = new AppResult(200, "添加成功", null);
 		} catch (Exception e) {
+			aResult = new AppResult(201, "数据异常，添加失败", null);
 			e.printStackTrace();
-			aResult = new AppResult(201, "未查到", null);
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
-		
 	}
+
 }

@@ -165,9 +165,15 @@ public class UserDao {
 		int result =-1;
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
-		
+		User user = new User();
 		try {
 			con = JDBCUtils.getConnection();
+			String sql1 = "select * from user_info where uname = ?";
+			user = runner.query(con, sql1, new BeanHandler<>(User.class),user.getUname());
+			if(user.getPosition() == 1) {
+				sql1 =  "UPDATE department_info SET uname = NULL WHERE uname=?" ;
+				runner.update(con, sql1,user.getUname());
+			}	
 			String sql = "DELETE FROM user_info WHERE uname = ?";
 			result = runner.update(con, sql,uname);
 		} catch (Exception e) {		

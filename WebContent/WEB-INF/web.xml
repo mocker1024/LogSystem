@@ -261,4 +261,34 @@
     <servlet-name>findAllDepartmentController</servlet-name>
     <url-pattern>/findalldepartment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>addDeapartmentController</display-name>
+    <servlet-name>addDeapartmentController</servlet-name>
+    <servlet-class>com.hl.controller.department.addDeapartmentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addDeapartmentController</servlet-name>
+    <url-pattern>/adddepartment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>modifyDepartmentController</display-name>
+    <servlet-name>modifyDepartmentController</servlet-name>
+    <servlet-class>com.hl.controller.department.modifyDepartmentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyDepartmentController</servlet-name>
+    <url-pattern>/modifydepartment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deleteDepartmentController</display-name>
+    <servlet-name>deleteDepartmentController</servlet-name>
+    <servlet-class>com.hl.controller.department.deleteDepartmentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteDepartmentController</servlet-name>
+    <url-pattern>/deletedepartment</url-pattern>
+  </servlet-mapping>
 </web-app>
