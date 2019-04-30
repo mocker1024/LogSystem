@@ -291,4 +291,34 @@
     <servlet-name>deleteDepartmentController</servlet-name>
     <url-pattern>/deletedepartment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>unameExistController</display-name>
+    <servlet-name>unameExistController</servlet-name>
+    <servlet-class>com.hl.controller.user.unameExistController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>unameExistController</servlet-name>
+    <url-pattern>/unameexist</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findUserByNameController</display-name>
+    <servlet-name>findUserByNameController</servlet-name>
+    <servlet-class>com.hl.controller.user.findUserByNameController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findUserByNameController</servlet-name>
+    <url-pattern>/finduserbyname</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>judgeSignController</display-name>
+    <servlet-name>judgeSignController</servlet-name>
+    <servlet-class>com.hl.controller.sign.judgeSignController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>judgeSignController</servlet-name>
+    <url-pattern>/judgesign</url-pattern>
+  </servlet-mapping>
 </web-app>

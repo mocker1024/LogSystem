@@ -29,23 +29,21 @@ public class AddUserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			addUser(request,response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addUser(request,response);
 	}
-	private void addUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		AppResult aResult = null;
 		request.setCharacterEncoding("utf-8");
 		//uname,password,department_id,position,realname
 		String uname = request.getParameter("uname");
 		String password = request.getParameter("password");
-		
+		System.out.println(uname);
+		System.out.println(password);
 		int department_id = Integer.parseInt(request.getParameter("department_id"));
 		int position= Integer.parseInt(request.getParameter("position"));
 		String realname = request.getParameter("realname");
+		
+		System.out.println(uname+":"+password+":"+department_id+":"+position+":"+realname);
 		
 		UserDao userDao= new UserDao();
 		try {
@@ -56,10 +54,13 @@ public class AddUserController extends HttpServlet {
 					throw new RuntimeException();
 				}
 				aResult = new AppResult(200,"注册成功,等待审核",null);
+				System.out.println("aresult = 200");
 				}
 		} catch (Exception e) {
 			aResult = new AppResult(201, "注册失败", null);
+			System.out.println("aresult = 201");
 		}
+		System.out.println("response");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));

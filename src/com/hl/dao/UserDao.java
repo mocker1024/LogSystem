@@ -7,7 +7,9 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import com.hl.common.AppResult;
 import com.hl.entity.User;
 import com.hl.utils.JDBCUtils;
 
@@ -97,6 +99,25 @@ public class UserDao {
 		
 		return ulist;
 	}
+	//根据uname查询用户信息
+	public User findUserByName(String uname) throws Exception {
+		User user = new User();
+		Connection con = null;
+		QueryRunner runner = new QueryRunner();
+		String sql = "SELECT uname,department_id,POSITION,realname,STATUS,sex,tel,age FROM user_info WHERE uname =?";
+		
+		try {
+			con = JDBCUtils.getConnection();
+			user = runner.query(con, sql, new BeanHandler<>(User.class),uname);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.closeAll(con, null, null);
+		}
+		return user;
+	}
 	//ע注册
 	public int addUser(User user) throws Exception {
 		int result=-1;
@@ -116,6 +137,38 @@ public class UserDao {
 				JDBCUtils.closeAll(con, null, null);
 		}
 		return result;
+	}
+	//判断用户名是否已存在
+	public int unameExist(String uname) throws Exception {
+		//int result = -1;
+		int result = 0;
+		Connection con = null;
+		QueryRunner runner = new QueryRunner();
+		User user = new User();
+		
+		String sql = "select * from user_info where uname =?";
+		
+		String sql1 = "SELECT COUNT(uname) FROM user_info WHERE uname=?;";
+		try {
+			con = JDBCUtils.getConnection();
+//			user = runner.query(con, sql, new BeanHandler<>(User.class),uname);
+//			System.out.println("user.dao:"+uname);
+//			System.out.println(user.getUname());
+			System.out.println("dao");
+			Long res =(runner.query(con, sql1,new ScalarHandler<Long>(),uname));
+			System.out.println("runner query");
+			System.out.println(res);
+			result = res.intValue();
+		
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.closeAll(con, null, null);
+		}
+		return ((Integer)result);
 	}
 	//个人信息修改
 	public int modifyUser(User user) throws Exception {
