@@ -55,8 +55,10 @@ public class LogDao {
 		QueryRunner runner = new QueryRunner();
 		try {
 			con = JDBCUtils.getConnection();
+			//modifyLogStatus(log);
 			String sql = "select * from log_info where log_id=? order by log_date desc";
 			log = runner.query(con, sql, new BeanHandler<>(Log.class),log_id);
+			modifyLogStatus(log);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +102,6 @@ public class LogDao {
 			}else if(user.getPosition()==1) {
 				sql = "SELECT * FROM log_info WHERE STATUS =0 AND uname IN"
 			          +"(SELECT uname FROM user_info WHERE POSITION = 0 AND department_id="+user.getDepartment_id()+") order by log_date desc";
-				
 			}
 			//System.out.println(sql);
 			list = runner.query(con, sql, new BeanListHandler<>(Log.class));

@@ -39,6 +39,8 @@ public class findAllUserController extends HttpServlet {
 		AppResult aResult=null;
 		List<User> ulist = null;
 		
+		System.out.println("");
+		
 		String uname = request.getParameter("uname");
 		User user = new User();
 		user.setUname(uname);

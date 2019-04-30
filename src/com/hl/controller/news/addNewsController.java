@@ -57,6 +57,10 @@ public class addNewsController extends HttpServlet {
 		news.setNews_context(news_context);
 		news.setNews_date(df.format(new Date()));
 		try {
+			if(title.length()==0 || news_context.length()==0) {
+				//aResult = new AppResult(201, "标题与内容不能为空",null);
+				throw new RuntimeException();
+			}
 			int result = newsDao.addNews(news);
 			if(result != 1) {
 				throw new RuntimeException();

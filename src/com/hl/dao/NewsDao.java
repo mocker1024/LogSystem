@@ -75,9 +75,7 @@ public class NewsDao {
 		int result= -1;
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
-		
 		String sql = "DELETE FROM news_info WHERE news_id = ?";
-		
 		try {
 			con = JDBCUtils.getConnection();
 			result = runner.update(con, sql,news_id);
