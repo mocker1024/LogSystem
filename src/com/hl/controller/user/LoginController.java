@@ -16,27 +16,17 @@ import com.hl.entity.User;
  */
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		login(request,response);
-	}
-    //	
+	}	
 	private void login(HttpServletRequest request, HttpServletResponse response)throws  IOException{
 		AppResult aResult=null;
-		//
 		String uname=request.getParameter("uname");
 		System.out.println(uname);
 		String password=request.getParameter("password");
-		//
 		UserDao userDao = new UserDao();
 		User user = null;
 		try {
@@ -46,17 +36,17 @@ public class LoginController extends HttpServlet {
 				throw new RuntimeException();
 			}else {
 				if(user.getStatus()==1) {
-					aResult = new AppResult(200,"登录成功",null);
-					// 
+					user = userDao.findUserByName(uname);
+					user.setPassword(null);
+					aResult = new AppResult(200,"登录成功！",user);
 					request.getSession().setAttribute("user", user);
 				}else if(user.getStatus()==0) {
 					aResult = new AppResult(203,"登录失败,账号等待审核...",null);
 				}		
 			}
 		} catch (Exception e) {
-			aResult = new AppResult(201,"error:admin or password",null);
+			aResult = new AppResult(201,"用户名或密码错误！",null);
 			e.printStackTrace();
-			//System.out.println(e);
 		}
 		// json
 		response.setCharacterEncoding("utf-8");

@@ -16,18 +16,11 @@ import com.hl.dao.UserDao;
 public class unameExistController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		unameExist(request, response);
 	}
 	
@@ -48,7 +41,7 @@ public class unameExistController extends HttpServlet {
 			if(result == 1) {
 				throw new RuntimeException();
 			}else {
-				aResult = new AppResult(200, "用户名可注册", null);
+				aResult = new AppResult(200, "用户名可用", null);
 			}
 			
 		} catch (Exception e) {
