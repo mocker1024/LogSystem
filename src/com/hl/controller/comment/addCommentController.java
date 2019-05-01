@@ -33,15 +33,11 @@ public class addCommentController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
+		
 			addComment(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
-	private void addComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void addComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AppResult aResult = null;
 		request.setCharacterEncoding("utf-8");
 		//设置接收的信息格式

@@ -222,7 +222,7 @@ public class UserDao {
 		try {
 			con = JDBCUtils.getConnection();
 			String sql1 = "select * from user_info where uname = ?";
-			user = runner.query(con, sql1, new BeanHandler<>(User.class),user.getUname());
+			user = runner.query(con, sql1, new BeanHandler<>(User.class),uname);
 			if(user.getPosition() == 1) {
 				sql1 =  "UPDATE department_info SET uname = NULL WHERE uname=?" ;
 				runner.update(con, sql1,user.getUname());

@@ -30,12 +30,12 @@ public class deleteUserController extends HttpServlet {
 		AppResult aResult=null;
 		request.setCharacterEncoding("utf-8");
 		String uname = request.getParameter("uname");
-		
+		System.out.println(uname);
 		UserDao userDao = new UserDao();
 		
 		try {
 			int result = userDao.deleteUser(uname);
-			if(result!=1) {
+			if(result != 1) {
 				throw new RuntimeException();
 			}
 			aResult = new AppResult(200,"删除成功",null);
