@@ -67,17 +67,77 @@ post：  String  uname   (查询者的用户名)
 
 
 四、通过用户名查询用户信息：
-接口地址：
-post：
+接口地址：http://localhost:30001/LogSystem/finduserbyname
+post：  String uname(用户名)
 
 返回结果：
+1、查询成功：
+{
+  "data": {
+    "age": 22,
+    "department_id": 10002,
+    "position": 1,
+    "realname": "阿林",
+    "sex": 1,
+    "status": 1,
+    "tel": "15323232323",
+    "uname": "alin"
+  },
+  "keycode": 200,
+  "message": "查询成功"
+}
+2、查找失败：
+{
+  "keycode": 201,
+  "message": "查询失败"
+}
+
 
 
 五、查找未被审核的用户：
-接口地址：
-post：
+接口地址：http://localhost:30001/LogSystem/finduserstatus0
+post： String uname (查询者的用户名)
 
 返回结果：
+1、无待审核的用户：
+{
+  "data": [],
+  "keycode": 200,
+  "message": "已查到数据"
+}
+2、有待审核的用户
+{
+  "data": [
+    {
+      "age": 33,
+      "department_id": 10003,
+      "position": 0,
+      "realname": "唐2",
+      "sex": 1,
+      "status": 0,
+      "tel": "15211111111",
+      "uname": "tang2"
+    },
+    {
+      "age": 0,
+      "department_id": 10003,
+      "position": 0,
+      "realname": "唐4",
+      "sex": 1,
+      "status": 0,
+      "tel": "null",
+      "uname": "tang4"
+    }
+  ],
+  "keycode": 200,
+  "message": "已查到数据"
+}
+3、查询有错：
+{
+  "keycode": 201,
+  "message": "无数据"
+}
+
 
 
 六、登录（按用户名和密码查找）
@@ -87,21 +147,59 @@ post：
 返回结果：
 
 七：用户通过审核：
-接口地址：
-post：
+接口地址：http://localhost:30001/LogSystem/modifystatus1
+post： String  uname（被审核的用户名）
 
 返回结果：
+1、修改成功：
+{
+  "keycode": 200,
+  "message": "修改成功"
+}
+2、修改错误：
+{
+  "keycode": 201,
+  "message": "数据修改失败"
+}
+
 
 
 八、用户信息修改：
-接口地址：
-post：
+接口地址：http://localhost:30001/LogSystem/modifyuser
+post：   *  String  uname
+      （随便改其中的什么）    String password(密码)
+      			int  department_id(部门id)
+      			int  position（职位）
+      			String realname（真实姓名）
+      			int sex（性别0男 1女）
+      			String tel （联系电话）
+      			int age（年龄）
 
 返回结果：
+1、修改成功
+{
+  "keycode": 200,
+  "message": "信息修改成功"
+}
+2、修改失败：
+{
+  "keycode": 201,
+  "message": "数据异常,信息修改失败"
+}
 
 
 九、判断用户名是否存在：
-接口地址：
-post：
+接口地址：http://localhost:30001/LogSystem/unameexist
+post：String uname
 
 返回结果：
+1、用户名已存在，不可注册
+{
+  "keycode": 201,
+  "message": "用户名已存在"
+}
+2、用户名不存在，可注册
+{
+  "keycode": 200,
+  "message": "用户名可注册"
+}

@@ -36,7 +36,8 @@ public class modifyStatus1Controller extends HttpServlet {
 		AppResult aResult = null;
 		request.setCharacterEncoding("utf-8");
 		String uname=request.getParameter("uname");
-		int status= Integer.parseInt(request.getParameter("status"));
+		//int status= Integer.parseInt(request.getParameter("status"));
+		int status = 1;
 		UserDao userDao =new UserDao();
 		User user=new User();
 		user.setUname(uname);

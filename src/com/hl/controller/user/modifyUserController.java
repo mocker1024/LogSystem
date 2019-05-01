@@ -33,14 +33,36 @@ public class modifyUserController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String uname=request.getParameter("uname");
-		String password = request.getParameter("password");
-		int department_id = Integer.parseInt(request.getParameter("department_id"));
-		int position= Integer.parseInt(request.getParameter("position"));
-		String realname = request.getParameter("realname");
+		String password=null;
+		if(request.getParameter("password")!=null) {
+			password = request.getParameter("password");
+		}
+		int department_id=-1;
+		if(request.getParameter("department_id") != null) {
+			department_id = Integer.parseInt(request.getParameter("department_id"));
+		}
+		
+		int position = -1;
+		if (request.getParameter("position") != null) {
+			position = Integer.parseInt(request.getParameter("position"));
+		}
+		String realname=null;
+		if(request.getParameter("realname") != null) {
+			realname = request.getParameter("realname");
+		}
 		int status =1;
-		int sex = Integer.parseInt(request.getParameter("sex"));
-		String tel=request.getParameter("tel");
-		int age = Integer.parseInt(request.getParameter("age"));
+		int sex = -1;
+		if (request.getParameter("sex")!=null) {
+			sex = Integer.parseInt(request.getParameter("sex"));
+		}
+		String tel=null;
+		if(request.getParameter("tel")!= null) {
+			tel = request.getParameter("tel");
+		}
+		int age = -1;
+		if(request.getParameter("age")!= null) {
+			age = Integer.parseInt(request.getParameter("age"));
+		}
 		UserDao userDao = new UserDao();
 		
 		User user = new User(uname, password, department_id, position, realname, status,sex,tel,age);
