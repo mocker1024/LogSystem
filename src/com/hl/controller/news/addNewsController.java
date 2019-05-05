@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListSign;
 import com.hl.dao.NewsDao;
 import com.hl.entity.News;
 
@@ -59,6 +58,7 @@ public class addNewsController extends HttpServlet {
 		try {
 			if(title.length()==0 || news_context.length()==0) {
 				//aResult = new AppResult(201, "标题与内容不能为空",null);
+				
 				throw new RuntimeException();
 			}
 			int result = newsDao.addNews(news);

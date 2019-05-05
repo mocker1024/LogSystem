@@ -100,42 +100,25 @@ post： String uname (查询者的用户名)
 
 返回结果：
 1、无待审核的用户：
-{
-  "data": [],
-  "keycode": 200,
-  "message": "已查到数据"
-}
+
 2、有待审核的用户
 {
   "data": [
     {
-      "age": 33,
-      "department_id": 10003,
-      "position": 0,
-      "realname": "唐2",
-      "sex": 1,
-      "status": 0,
-      "tel": "15211111111",
-      "uname": "tang2"
+      "dname": "部门1",    
+      "pname": "部门经理",
+      "realname": "嘟嘟嘟",
+      "uname": "dododo"
     },
     {
-      "age": 0,
-      "department_id": 10003,
-      "position": 0,
-      "realname": "唐4",
-      "sex": 1,
-      "status": 0,
-      "tel": "null",
-      "uname": "tang4"
+      "dname": "部门3",
+      "pname": "部门经理",
+      "realname": "唐宝",
+      "uname": "tang"
     }
   ],
   "keycode": 200,
   "message": "已查到数据"
-}
-3、查询有错：
-{
-  "keycode": 201,
-  "message": "无数据"
 }
 
 

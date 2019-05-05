@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.hl.common.AppResult;
+import com.hl.common.CombRegister;
 import com.hl.entity.User;
 import com.hl.utils.JDBCUtils;
 
@@ -67,29 +68,38 @@ public class UserDao {
 		return list;
 	}
 	//查找未被审核的用户信息
-	public List<User> findUserStatus0(User user) throws Exception{
+	public List<CombRegister> findUserStatus0(User user) throws Exception{
 		List<User> ulist = null;
+		List<CombRegister> clist = null;
+		User user1 =new User();
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
 		String uname = user.getUname();
 		try {
 			con = JDBCUtils.getConnection();
 			String sql = null;
-			String sql1 = "select * from user_info where uname = '"+uname+"'";
-			User user1 = new User(runner.query(con, sql1, new BeanHandler<>(User.class)));
+			String sql1 = "select uname,department_id,POSITION,realname,STATUS,sex,tel,age from user_info where uname = '"+uname+"'";
+			
+			user1 = runner.query(con, sql1, new BeanHandler<>(User.class));
+			
 			int position = user1.getPosition();
 			if(position == 2) {
-				sql = "select uname,department_id,position,realname,STATUS,sex,tel,age from user_info where status=0 and position=1";
+				sql = "SELECT realname,user_info.uname,pname,dname,user_info.`department_id`,STATUS FROM user_info,position_info,department_info " + 
+					" WHERE STATUS=0 AND user_info.position=1 AND position_info.`position`=1 AND user_info.`department_id` = department_info.`department_id`";
 			}
 			if(position == 1) {
-				sql = "select uname,department_id,position,realname,STATUS,sex,tel,age from user_info "
-			          +"where status=0 and position=0 and department_id ="+user1.getDepartment_id();
+				sql = "SELECT realname,user_info.uname,pname,dname FROM user_info,position_info,department_info "
+					 +"WHERE user_info.`position` = position_info.`position` AND STATUS=0 AND user_info.position=0 AND user_info.department_id = "+user1.getDepartment_id()+" AND department_info.department_id = "+user1.getDepartment_id();
+//				sql = "select uname,department_id,position,realname,STATUS,sex,tel,age from user_info "
+//			          +"where status=0 and position=0 and department_id ="+user1.getDepartment_id();
+				System.out.println(sql);
 			}
 //			System.out.println(user1.getUname());
 //			System.out.println(user1.getDepartment_id());
 //			System.out.println(user1.getPosition());
 //			System.out.println(sql);
-			ulist = runner.query(con, sql, new BeanListHandler<>(User.class));
+//			ulist = runner.query(con, sql, new BeanListHandler<>(User.class));
+			clist = runner.query(con, sql, new BeanListHandler<>(CombRegister.class));
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -97,7 +107,7 @@ public class UserDao {
 			JDBCUtils.closeAll(con, null, null);
 		}
 		
-		return ulist;
+		return clist;
 	}
 	//根据uname查询用户信息
 	public User findUserByName(String uname) throws Exception {

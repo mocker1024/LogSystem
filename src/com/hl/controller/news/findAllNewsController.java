@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListLog;
-import com.hl.common.ListNews;
 import com.hl.dao.NewsDao;
 import com.hl.entity.News;
 

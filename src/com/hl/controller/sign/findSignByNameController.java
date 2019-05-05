@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListSign;
 import com.hl.dao.SignDao;
 import com.hl.entity.Sign;
 

@@ -132,4 +132,22 @@ public class DepartmentDao {
 		}
 		return dlist;
 	}
+	//根据id查询部门
+	public Department findDepartmentInfo(int department_id) throws Exception {
+		Department department = new Department();
+		Connection con = null;
+		QueryRunner runner = new QueryRunner();
+		String sql = "select * from department_info where department_id = ?";
+		
+		try {
+			con = JDBCUtils.getConnection();
+			department = runner.query(con, sql, new BeanHandler<>(Department.class),department_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.closeAll(con, null, null);
+		}
+		
+		return department;
+	}
 }

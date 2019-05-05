@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListObject;
 import com.hl.dao.UserDao;
 import com.hl.entity.User;
 

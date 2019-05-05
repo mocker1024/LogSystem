@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
-import com.hl.common.ListLog;
-import com.hl.common.ListObject;
-import com.hl.dao.LogDao;
+import com.hl.common.CombRegister;
+import com.hl.dao.DepartmentDao;
+import com.hl.dao.PositionDao;
 import com.hl.dao.UserDao;
-import com.hl.entity.Log;
+import com.hl.entity.Department;
+import com.hl.entity.Position;
 import com.hl.entity.User;
 
 /**
@@ -41,16 +42,31 @@ public class findUserStatus0Controller extends HttpServlet {
 		AppResult aResult = null;
 		//ListObject listObject = null;
 		List<User> ulist = null;
+		List<CombRegister> clist = null;
+		PositionDao positionDao = new PositionDao();
+	    DepartmentDao departDao = new DepartmentDao();
 		
+	    Department depart = new Department();
+	    
+		//List list = null;
 		String uname = request.getParameter("uname");
+		System.out.println("jieshou uname:"+uname);
 		User user = new User();
 		user.setUname(uname);
 		try {
-			ulist = userDao.findUserStatus0(user);
-			if(ulist == null) {
+			clist = userDao.findUserStatus0(user);
+			if(clist == null) {
 				throw new RuntimeException();
 			}
-			aResult = new AppResult(200, "已查到数据", ulist);
+			int position = user.getPosition();
+			String pname= positionDao.findpnamebyposition(position);
+			
+			System.out.println(pname);
+			
+			int department_id = user.getDepartment_id();
+			depart = departDao.findDepartmentInfo(department_id);
+			
+			aResult = new AppResult(200, "已查到数据", clist);
 		} catch (Exception e) {
 			aResult = new AppResult(201, "无数据", null);
 			e.printStackTrace();

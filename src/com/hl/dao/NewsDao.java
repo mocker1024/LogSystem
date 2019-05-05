@@ -23,6 +23,7 @@ public class NewsDao {
 		
 		try {
 			con = JDBCUtils.getConnection();
+			System.out.println(result);
 			result = runner.update(con, sql,news.getTitle(),news.getNews_context(),news.getNews_date());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -62,6 +63,7 @@ public class NewsDao {
 		try {
 			con = JDBCUtils.getConnection();
 			news = runner.query(con, sql, new BeanHandler<>(News.class),news_id);
+			System.out.println(news.getNews_context());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
