@@ -33,13 +33,16 @@ public class modifyUserController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String uname=request.getParameter("uname");
+		System.out.println(uname);
 		String password=null;
 		if(request.getParameter("password")!=null) {
 			password = request.getParameter("password");
+			System.out.println(password);
 		}
 		int department_id=-1;
 		if(request.getParameter("department_id") != null) {
 			department_id = Integer.parseInt(request.getParameter("department_id"));
+			System.out.println(department_id);
 		}
 		
 		int position = -1;
@@ -54,14 +57,17 @@ public class modifyUserController extends HttpServlet {
 		int sex = -1;
 		if (request.getParameter("sex")!=null) {
 			sex = Integer.parseInt(request.getParameter("sex"));
+			System.out.println(sex);
 		}
 		String tel=null;
 		if(request.getParameter("tel")!= null) {
 			tel = request.getParameter("tel");
+			System.out.println(tel);
 		}
 		int age = -1;
 		if(request.getParameter("age")!= null) {
 			age = Integer.parseInt(request.getParameter("age"));
+			System.out.println(age);
 		}
 		UserDao userDao = new UserDao();
 		

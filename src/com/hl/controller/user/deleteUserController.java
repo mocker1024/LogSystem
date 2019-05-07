@@ -27,12 +27,12 @@ public class deleteUserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("dopost in!");
 		AppResult aResult=null;
 		request.setCharacterEncoding("utf-8");
 		String uname = request.getParameter("uname");
-		System.out.println(uname);
+		System.out.println("用户名："+uname);
 		UserDao userDao = new UserDao();
-		
 		try {
 			int result = userDao.deleteUser(uname);
 			if(result != 1) {

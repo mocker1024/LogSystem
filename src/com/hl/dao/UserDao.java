@@ -241,20 +241,26 @@ public class UserDao {
 	
 	//删除
 	public int deleteUser(String uname) throws Exception {
+		
 		int result =-1;
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
 		User user = new User();
+		System.out.println("deleteUser dao in");
 		try {
 			con = JDBCUtils.getConnection();
 			String sql1 = "select * from user_info where uname = ?";
 			user = runner.query(con, sql1, new BeanHandler<>(User.class),uname);
+			System.out.println(user.getUname()+":"+user.getAge()+":"+user.getPosition()+":"+user.getStatus());
 			if(user.getPosition() == 1) {
 				sql1 =  "UPDATE department_info SET uname = NULL WHERE uname=?" ;
-				runner.update(con, sql1,user.getUname());
+				result = runner.update(con, sql1,user.getUname());
+				System.out.println(result);
 			}	
-			String sql = "DELETE FROM user_info WHERE uname = ?";
-			result = runner.update(con, sql,uname);
+			sql1 = "DELETE FROM calendar_info WHERE uname = '"+user.getUname()+"'";
+			result = runner.update(con, sql1);
+			String sql = "DELETE FROM user_info WHERE uname = '"+user.getUname()+"'";
+			result = runner.update(con, sql);
 		} catch (Exception e) {		
 			e.printStackTrace();
 		} finally {

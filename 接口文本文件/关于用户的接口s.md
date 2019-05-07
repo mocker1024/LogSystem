@@ -6,6 +6,7 @@ post：   String uname       (用户名)
 	   int position		  (职位--权限)
 	   String realname	  (真实姓名)
 返回结果：
+```
 1、注册成功：
 {
   "keycode": 200,
@@ -16,7 +17,7 @@ post：   String uname       (用户名)
   "keycode": 201,
   "message": "注册失败"
 } 
-
+```
 
 ###二、删除用户：
 接口地址：`http://localhost:30001/LogSystem/deleteuser`

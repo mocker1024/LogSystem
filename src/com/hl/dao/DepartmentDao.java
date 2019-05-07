@@ -138,7 +138,6 @@ public class DepartmentDao {
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
 		String sql = "select * from department_info where department_id = ?";
-		
 		try {
 			con = JDBCUtils.getConnection();
 			department = runner.query(con, sql, new BeanHandler<>(Department.class),department_id);
