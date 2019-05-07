@@ -1,5 +1,5 @@
-一、注册（增加新账号）
-接口地址：http://localhost:30001/LogSystem/adduser
+####一、注册（增加新账号）
+接口地址：`http://localhost:30001/LogSystem/adduser`
 post：   String uname       (用户名)   
 	   String password	  (密码)
 	   int department_id  (部门id)
@@ -18,8 +18,8 @@ post：   String uname       (用户名)
 } 
 
 
-二、删除用户：
-接口地址：http://localhost:30001/LogSystem/deleteuser
+###二、删除用户：
+接口地址：`http://localhost:30001/LogSystem/deleteuser`
 post：   String  uname
 
 返回结果：
@@ -67,7 +67,7 @@ post：  String  uname   (查询者的用户名)
 
 
 四、通过用户名查询用户信息：
-接口地址：http://localhost:30001/LogSystem/finduserbyname
+接口地址：`
 post：  String uname(用户名)
 
 返回结果：

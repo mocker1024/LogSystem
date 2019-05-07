@@ -15,7 +15,6 @@ import com.hl.dao.DepartmentDao;
 import com.hl.dao.PositionDao;
 import com.hl.dao.UserDao;
 import com.hl.entity.Department;
-import com.hl.entity.Position;
 import com.hl.entity.User;
 
 /**
@@ -40,17 +39,13 @@ public class findUserStatus0Controller extends HttpServlet {
 	private void findUserStatus0(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		UserDao userDao = new UserDao();
 		AppResult aResult = null;
-		//ListObject listObject = null;
-		List<User> ulist = null;
 		List<CombRegister> clist = null;
 		PositionDao positionDao = new PositionDao();
 	    DepartmentDao departDao = new DepartmentDao();
 		
 	    Department depart = new Department();
-	    
-		//List list = null;
+	    System.out.println(depart.getUname());
 		String uname = request.getParameter("uname");
-		System.out.println("jieshou uname:"+uname);
 		User user = new User();
 		user.setUname(uname);
 		try {

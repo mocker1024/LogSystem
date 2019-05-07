@@ -1,7 +1,6 @@
 package com.hl.controller.news;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,16 +31,10 @@ public class addNewsController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
 			addNews(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
-	private void addNews(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void addNews(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		//ListSign listsign = null;
 		AppResult aResult = null;
 		request.setCharacterEncoding("utf-8");

@@ -119,7 +119,7 @@ public class DepartmentDao {
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
 		
-		String sql = "select * from department_info";
+		String sql = "SELECT * FROM department_info WHERE department_id  NOT LIKE ('1') AND department_id  NOT LIKE ('1024')";
 		
 		try {
 			con = JDBCUtils.getConnection();
@@ -147,7 +147,6 @@ public class DepartmentDao {
 		} finally {
 			JDBCUtils.closeAll(con, null, null);
 		}
-		
 		return department;
 	}
 }

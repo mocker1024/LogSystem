@@ -39,10 +39,6 @@ public class findSignByNameController extends HttpServlet {
 			if(slist.size() == 0) {
 				throw new RuntimeException();
 			}
-			int i = slist.size();
-			//System.out.println(i);
-			//System.out.println(slist.get(i));
-			//System.out.println(uname);
 			aResult = new AppResult(200, "签到查询成功", slist);
 		} catch (Exception e) {
 			aResult = new AppResult(201, "无签到数据", null);

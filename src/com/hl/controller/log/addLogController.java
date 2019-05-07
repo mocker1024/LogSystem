@@ -1,7 +1,6 @@
 package com.hl.controller.log;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,7 +34,6 @@ public class addLogController extends HttpServlet {
 		try {
 			addLog(request,response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

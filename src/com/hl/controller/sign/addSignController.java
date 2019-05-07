@@ -1,7 +1,6 @@
 package com.hl.controller.sign;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,15 +31,10 @@ public class addSignController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-			addSign(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		addSign(request, response);
 	}
 	
-	private void addSign(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void addSign(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		SignDao signDao = new SignDao();
 		AppResult aResult = null;
 		int result=-1;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
+import com.hl.common.CombUserInfo;
 import com.hl.dao.UserDao;
 import com.hl.entity.User;
 
@@ -36,7 +37,7 @@ public class findAllUserController extends HttpServlet {
 	private void findAllUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		UserDao userDao = new UserDao();
 		AppResult aResult=null;
-		List<User> ulist = null;
+		List<CombUserInfo> ulist = null;
 		
 		System.out.println("");
 		
