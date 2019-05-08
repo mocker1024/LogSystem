@@ -321,4 +321,14 @@
     <servlet-name>judgeSignController</servlet-name>
     <url-pattern>/judgesign</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>exportLogController</display-name>
+    <servlet-name>exportLogController</servlet-name>
+    <servlet-class>com.hl.controller.log.exportLogController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>exportLogController</servlet-name>
+    <url-pattern>/exportlog</url-pattern>
+  </servlet-mapping>
 </web-app>

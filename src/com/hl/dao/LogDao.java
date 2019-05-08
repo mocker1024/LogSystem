@@ -1,7 +1,24 @@
 package com.hl.dao;
 
+import java.sql.Array;
+import java.sql.Blob;
+import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.NClob;
+import java.sql.PreparedStatement;
+import java.sql.SQLClientInfoException;
+import java.sql.SQLException;
+import java.sql.SQLWarning;
+import java.sql.SQLXML;
+import java.sql.Savepoint;
+import java.sql.Statement;
+import java.sql.Struct;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -106,12 +123,38 @@ public class LogDao {
 			//System.out.println(sql);
 			list = runner.query(con, sql, new BeanListHandler<>(Log.class));
 		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.closeAll(con, null, null);
+		}
+		return list;
+	}
+	
+	//根据日期查日志（为导出做准备）
+	public List<Log> findlogbydate(String uname,String date) throws Exception{
+		List<Log> list = null;
+		
+		Connection con = null;
+		QueryRunner runner = new QueryRunner();
+		String[] temp;
+		String delimeter = "-";  // 指定分割字符
+		temp = date.split(delimeter); // 分割字符串
+		
+		
+		String sql = "select * from log_info where uname = '"+uname+"' and log_date like '"+temp[0]+"-"+temp[1]+"%'";
+		System.out.println(sql);
+		try {
+			con = JDBCUtils.getConnection();
+			list = runner.query(con, sql, new BeanListHandler<>(Log.class));
+			System.out.println(sql);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.closeAll(con, null, null);
-			//System.out.println("数据库关闭 ");
 		}
 		return list;
 	}
+	
 }
+
