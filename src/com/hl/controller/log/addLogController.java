@@ -50,14 +50,19 @@ public class addLogController extends HttpServlet {
 		//log.setStatus(0);
 		LogDao logDao = new LogDao();
 		try {
+			if(log.getLog_context()==null) {
+				aResult = new AppResult(202,"日志内容不能为空",null);
+				throw new RuntimeException();
+			}
 			int result = logDao.addLog(log);
 			if(result == -1) {
+				aResult = new AppResult(201,"数据异常，提交失败",null);
 				throw new RuntimeException();
 			}else {
 				aResult = new AppResult(200,"日志填写完成",null);
 			}
 		} catch (Exception e) {
-			aResult = new AppResult(201,"数据异常，提交失败",null);
+			
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");

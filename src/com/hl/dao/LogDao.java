@@ -39,9 +39,7 @@ public class LogDao {
 			con = JDBCUtils.getConnection();
 			String sql = "INSERT INTO log_info(log_context,log_date,uname) VALUE(?,?,?);";
 			result = runner.update(con, sql,log.getLog_context(),log.getLog_date(),log.getUname());
-			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.closeAll(con, null, null);
@@ -115,10 +113,10 @@ public class LogDao {
 			user = runner.query(con, sql, new BeanHandler<>(User.class));
 			if(user.getPosition() == 2) {
 				//sql = "select * from log_info where status=0 and position=1";
-				sql = "SELECT * FROM log_info WHERE STATUS=0 AND uname IN (SELECT uname FROM user_info WHERE POSITION=1) order by log_date desc";
+				sql = "SELECT * FROM log_info WHERE uname IN (SELECT uname FROM user_info WHERE POSITION=1) order by log_date desc,status desc";
 			}else if(user.getPosition()==1) {
-				sql = "SELECT * FROM log_info WHERE STATUS =0 AND uname IN"
-			          +"(SELECT uname FROM user_info WHERE POSITION = 0 AND department_id="+user.getDepartment_id()+") order by log_date desc";
+				sql = "SELECT * FROM log_info WHERE uname IN"
+			          +"(SELECT uname FROM user_info WHERE POSITION = 0 AND department_id="+user.getDepartment_id()+") order by log_date desc,status desc";
 			}
 			//System.out.println(sql);
 			list = runner.query(con, sql, new BeanListHandler<>(Log.class));
