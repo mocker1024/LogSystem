@@ -1,24 +1,8 @@
 package com.hl.dao;
 
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.NClob;
-import java.sql.PreparedStatement;
-import java.sql.SQLClientInfoException;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Savepoint;
-import java.sql.Statement;
-import java.sql.Struct;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -34,7 +18,9 @@ public class LogDao {
 		int result = -1;
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
-		
+		if(log.getLog_context() == null || log.getLog_context().length() == 0) {
+			return result;
+		}
 		try {
 			con = JDBCUtils.getConnection();
 			String sql = "INSERT INTO log_info(log_context,log_date,uname) VALUE(?,?,?);";
@@ -75,7 +61,6 @@ public class LogDao {
 			log = runner.query(con, sql, new BeanHandler<>(Log.class),log_id);
 			modifyLogStatus(log);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.closeAll(con, null, null);
@@ -127,9 +112,27 @@ public class LogDao {
 		}
 		return list;
 	}
-	
+	//根据某个日期查日志
+	public Log findLogBydate(String uname,String date) throws Exception {
+		Log log = null;
+		Connection con = null;
+		QueryRunner runner = new QueryRunner();
+		
+		String sql = "SELECT * FROM log_info WHERE uname = ? AND log_date LIKE '"+date+"%'";
+		
+		try {
+			con = JDBCUtils.getConnection();
+			log = runner.query(con, sql, new BeanHandler<>(Log.class),uname);
+			System.out.println("根据日期查找日志"+sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtils.closeAll(con, null, null);
+		}
+		return log;
+	}
 	//根据日期查日志（为导出做准备）
-	public List<Log> findlogbydate(String uname,String date) throws Exception{
+	public List<Log> findLogsBySomeDay(String uname,String date) throws Exception{
 		List<Log> list = null;
 		
 		Connection con = null;
@@ -146,7 +149,6 @@ public class LogDao {
 			list = runner.query(con, sql, new BeanListHandler<>(Log.class));
 			System.out.println(sql);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCUtils.closeAll(con, null, null);

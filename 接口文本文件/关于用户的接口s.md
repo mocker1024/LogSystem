@@ -1,4 +1,4 @@
-####一、注册（增加新账号）
+###一、注册（增加新账号）
 接口地址：`http://localhost:30001/LogSystem/adduser`
 post：   String uname        (用户名)   
 	   String password	  (密码)
@@ -6,6 +6,8 @@ post：   String uname        (用户名)
 	   int position		  (职位--权限)
 	   String realname	  (真实姓名)
 返回结果：
+
+```
 1、注册成功：
 {
   "keycode": 200,
@@ -16,6 +18,7 @@ post：   String uname        (用户名)
   "keycode": 201,
   "message": "注册失败"
 } 
+```
 
 
 ###二、删除用户：
@@ -23,6 +26,8 @@ post：   String uname        (用户名)
 post：   String  uname
 
 返回结果：
+
+```
 1、删除成功：
 {  "keycode": 200,  "message": "删除成功"        }
 2、删除失败：
@@ -64,9 +69,9 @@ post：  String  uname   (查询者的用户名)
   "keycode": 201,
   "message": "查询失败"
 }
+```
 
-
-四、通过用户名查询用户信息：
+###四、通过用户名查询用户信息：
 接口地址：`
 post：  String uname(用户名)
 
@@ -94,8 +99,8 @@ post：  String uname(用户名)
 
 
 
-五、查找未被审核的用户：
-接口地址：http://localhost:30001/LogSystem/finduserstatus0
+###五、查找未被审核的用户：
+接口地址：`http://localhost:30001/LogSystem/finduserstatus0`
 post： String uname (查询者的用户名)
 
 返回结果：
@@ -123,14 +128,14 @@ post： String uname (查询者的用户名)
 
 
 
-六、登录（按用户名和密码查找）
+###六、登录（按用户名和密码查找）
 接口地址：
 post：
 
 返回结果：
 
-七：用户通过审核：
-接口地址：http://localhost:30001/LogSystem/modifystatus1
+###七：用户通过审核：
+接口地址：`http://localhost:30001/LogSystem/modifystatus1`
 post： String  uname（被审核的用户名）
 
 返回结果：
@@ -147,8 +152,8 @@ post： String  uname（被审核的用户名）
 
 
 
-八、用户信息修改：
-接口地址：http://localhost:30001/LogSystem/modifyuser
+###八、用户信息修改：
+接口地址：`http://localhost:30001/LogSystem/modifyuser`
 post：   *  String  uname
       （随便改其中的什么）    String password(密码)
       			int  department_id(部门id)
@@ -171,8 +176,8 @@ post：   *  String  uname
 }
 
 
-九、判断用户名是否存在：
-接口地址：http://localhost:30001/LogSystem/unameexist
+###九、判断用户名是否存在：
+接口地址：`http://localhost:30001/LogSystem/unameexist`
 post：String uname
 
 返回结果：

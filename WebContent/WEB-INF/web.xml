@@ -331,4 +331,14 @@
     <servlet-name>exportLogController</servlet-name>
     <url-pattern>/exportlog</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>findLogByDateController</display-name>
+    <servlet-name>findLogByDateController</servlet-name>
+    <servlet-class>com.hl.controller.log.findLogByDateController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>findLogByDateController</servlet-name>
+    <url-pattern>/findlogbydate</url-pattern>
+  </servlet-mapping>
 </web-app>

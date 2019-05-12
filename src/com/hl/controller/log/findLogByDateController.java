@@ -1,8 +1,6 @@
 package com.hl.controller.log;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +13,9 @@ import com.hl.dao.LogDao;
 import com.hl.entity.Log;
 
 /**
- * Servlet implementation class exportLogController
+ * Servlet implementation class findLogByDateController
  */
-public class exportLogController extends HttpServlet {
+public class findLogByDateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -31,30 +29,32 @@ public class exportLogController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		exportLog(request,response);
+		findLogByDate(request, response);
 	}
-
-	public void exportLog(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		LogDao logDao = new LogDao();
+	
+	public void findLogByDate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
-		AppResult aResult = null;
-		List<Log> list = null;
 		String uname = request.getParameter("uname");
 		String date = request.getParameter("date");
+		
+		LogDao logDao = new LogDao();
+		AppResult aResult = null;
+		Log log = null;
+		
 		try {
-			list = logDao.findLogsBySomeDay(uname, date);
-			if(list == null || list.size()==0) {
+			log = logDao.findLogBydate(uname, date);
+			if(log==null || log.getLog_context()==null) {
+				aResult = new AppResult(201, date+"没有日志", null);
 				throw new RuntimeException();
 			}
-			aResult = new AppResult(200, "日志导出成功！", list);
+			aResult = new AppResult(200, "找到"+date+"日志", log);
 		} catch (Exception e) {
-			aResult = new AppResult(201, "日志导出异常！", null);
+			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		response.getWriter().println(JSON.toJSONString(aResult));
 		response.getWriter().flush();
-	      
-		
 	}
+
 }
