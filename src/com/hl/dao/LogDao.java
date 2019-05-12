@@ -8,6 +8,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import com.hl.common.ExportLogInfo;
 import com.hl.entity.Log;
 import com.hl.entity.User;
 import com.hl.utils.JDBCUtils;
@@ -132,22 +133,18 @@ public class LogDao {
 		return log;
 	}
 	//根据日期查日志（为导出做准备）
-	public List<Log> findLogsBySomeDay(String uname,String date) throws Exception{
-		List<Log> list = null;
-		
+	public List<ExportLogInfo> findLogsBySomeDay(String uname,String beginDate,String endDate ) throws Exception{
+		List<ExportLogInfo> list = null;
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
-		String[] temp;
-		String delimeter = "-";  // 指定分割字符
-		temp = date.split(delimeter); // 分割字符串
 		
+		String sql = "SELECT log_date,log_context FROM log_info WHERE uname = ? AND log_date>? AND log_date <? ORDER BY log_date";//uname,beginDate,endDate
 		
-		String sql = "select * from log_info where uname = '"+uname+"' and log_date like '"+temp[0]+"-"+temp[1]+"%'";
-		System.out.println(sql);
 		try {
 			con = JDBCUtils.getConnection();
-			list = runner.query(con, sql, new BeanListHandler<>(Log.class));
+			list = runner.query(con, sql, new BeanListHandler<>(ExportLogInfo.class),uname,beginDate,endDate);
 			System.out.println(sql);
+			System.out.println(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

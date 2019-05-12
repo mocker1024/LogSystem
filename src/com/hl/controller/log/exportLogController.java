@@ -1,7 +1,7 @@
 package com.hl.controller.log;
 
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 import com.hl.common.AppResult;
+import com.hl.common.ExportLogInfo;
 import com.hl.dao.LogDao;
-import com.hl.entity.Log;
 
 /**
  * Servlet implementation class exportLogController
@@ -38,17 +38,28 @@ public class exportLogController extends HttpServlet {
 		LogDao logDao = new LogDao();
 		request.setCharacterEncoding("utf-8");
 		AppResult aResult = null;
-		List<Log> list = null;
+		List<ExportLogInfo> list = null;
 		String uname = request.getParameter("uname");
-		String date = request.getParameter("date");
+		String beginDate = request.getParameter("beginDate");
+		String endDate= request.getParameter("endDate");
 		try {
-			list = logDao.findLogsBySomeDay(uname, date);
-			if(list == null || list.size()==0) {
+			
+			list = logDao.findLogsBySomeDay(uname,beginDate,endDate);
+			if(list == null || list.size() ==0) {
+				aResult = new AppResult(201, "不存在日志，日志导出失败", null);
 				throw new RuntimeException();
 			}
-			aResult = new AppResult(200, "日志导出成功！", list);
+			
+			String address = "D:/test/log"+beginDate+"~"+endDate+".doc";
+			FileWriter fw = new FileWriter(address);
+			for(ExportLogInfo exlog:list) {
+				fw.write(exlog.toString());
+			}
+			//fw.write(list.toString());
+			fw.close();
+			aResult = new AppResult(200, "文件位置："+address, null);
 		} catch (Exception e) {
-			aResult = new AppResult(201, "日志导出异常！", null);
+			e.printStackTrace();
 		}
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
