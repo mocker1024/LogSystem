@@ -119,6 +119,20 @@ public class LogDao {
 		Connection con = null;
 		QueryRunner runner = new QueryRunner();
 		
+		String [] temp;
+		String delimeter="-";
+		temp = date.split(delimeter);
+		System.out.println(temp[1].length());
+		if(temp[1].length()==1) {
+			temp[1] = "0"+temp[1];
+			System.out.println(temp[1]);
+		}
+		if(temp[2].length()==1) {
+			temp[2]="0"+temp[2];
+			System.out.println(temp[2]);
+		}
+		date=temp[0]+"-"+temp[1]+"-"+temp[2];
+		System.out.println(date);
 		String sql = "SELECT * FROM log_info WHERE uname = ? AND log_date LIKE '"+date+"%'";
 		
 		try {

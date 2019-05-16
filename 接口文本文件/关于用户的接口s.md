@@ -154,7 +154,7 @@ post： String  uname（被审核的用户名）
 
 ###八、用户信息修改：
 接口地址：`http://localhost:30001/LogSystem/modifyuser`
-post：   *  String  uname
+post：   *                             String  uname  (员工uname)
       （随便改其中的什么）    String password(密码)
       			int  department_id(部门id)
       			int  position（职位）

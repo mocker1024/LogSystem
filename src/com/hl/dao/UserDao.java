@@ -54,14 +54,14 @@ public class UserDao {
 				//System.out.println("if user1.getposition == 2\n"+sql);
 			}else if(user1.getPosition() == 1) {
 				int department_id= user1.getDepartment_id();
-				sql = "SELECT realname,user_info.uname,pname,dname,tel,user_info.position,CASE sex WHEN '0' THEN '男'" + 
+				sql = "SELECT user_info.`department_id`,realname,user_info.uname,pname,dname,tel,user_info.position,CASE sex WHEN '0' THEN '男'" + 
 					  " WHEN '1' THEN '女' END AS sex "+
 					  "FROM user_info,position_info,department_info " + 
 					  " WHERE user_info.position=0 AND position_info.`position`=0 AND user_info.`department_id` = department_info.`department_id` AND STATUS =1 AND user_info.`department_id`=" +department_id +" and user_info.uname not like '"+user1.getUname()+"'"; 
 				//System.out.println("if user1.getposition == 1\n"+sql);
 				//sql = "select uname,department_id,position,realname,STATUS,sex,tel,age from user_info where status=1 and department_id ="+department_id;
 			}else {
-				 sql="SELECT realname,user_info.uname,pname,dname,tel,user_info.position,CASE sex WHEN '0' THEN '男' " + 
+				 sql="SELECT user_info.`department_id`,realname,user_info.uname,pname,dname,tel,user_info.position,CASE sex WHEN '0' THEN '男' " + 
 				 	 " WHEN '1' THEN '女' END AS sex FROM user_info,position_info,department_info " + 
 				 	 " WHERE  user_info.`department_id` = department_info.`department_id` AND STATUS =1  AND position_info.`position`=user_info.`position` AND user_info.`uname`=?" +user1.getUname();
 			}
@@ -181,12 +181,12 @@ public class UserDao {
 				result = 0;
 				return result ;
 			}
-			System.out.println(user.getAge());
+			//System.out.println(user.getAge());
 			if (user.getAge() != -1) {
 				sql = "UPDATE user_info SET age =? WHERE uname = ?";
 			    runner.update(con,sql,user.getAge(),user.getUname());
 			}
-			System.out.println(user.getPassword());
+			//System.out.println(user.getPassword());
 			if(user.getPassword() != null) {
 				sql = "UPDATE user_info SET password =? WHERE uname = ?";
 				runner.update(con,sql,user.getPassword(),user.getUname());

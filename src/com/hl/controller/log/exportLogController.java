@@ -52,6 +52,11 @@ public class exportLogController extends HttpServlet {
 			
 			String address = "D:/test/log"+beginDate+"~"+endDate+".doc";
 			FileWriter fw = new FileWriter(address);
+			//存入手机地址
+			/*
+			String mobileAddress = "/storage/emulated/0/logSystem/log"+beginDate+"~"+endDate+".doc";
+			FileWriter fw = new FileWriter(mobileAddress);
+			*/
 			for(ExportLogInfo exlog:list) {
 				fw.write(exlog.toString());
 			}
