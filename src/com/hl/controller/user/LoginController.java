@@ -23,6 +23,8 @@ public class LoginController extends HttpServlet {
 		login(request,response);
 	}	
 	private void login(HttpServletRequest request, HttpServletResponse response)throws  IOException{
+		
+		System.out.println("登录接口：");
 		AppResult aResult=null;
 		String uname=request.getParameter("uname");
 		System.out.println(uname);

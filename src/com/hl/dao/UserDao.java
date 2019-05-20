@@ -17,6 +17,7 @@ import com.hl.utils.JDBCUtils;
 public class UserDao {
 	//登录
 	public User findUserByNameAndPassword(String uname,String password)throws Exception{
+		System.out.println("登录判断？");
 		User user =null;
 		Connection con = null;
 		QueryRunner runner= new QueryRunner();
